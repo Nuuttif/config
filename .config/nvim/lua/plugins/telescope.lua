@@ -16,7 +16,6 @@ return {
 					mappings = {
 						["i"] = {
 							-- your custom insert mode mappings
-							["C-r"] = fb_actions.rename,
 						},
 						["n"] = {
 							-- your custom normal mode mappings
