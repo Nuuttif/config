@@ -22,6 +22,20 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.number = true
 
+-- Setup lazy.nvim
+require("lazy").setup({
+	spec = {
+		-- import your plugins
+		{ import = "plugins" },
+		{ import = "plugins.lsp" },
+	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "habamax" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
+})
+
 -- Telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader><Tab>", builtin.find_files, { desc = "Telescope find files" })
@@ -86,16 +100,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 --]]
 
--- Setup lazy.nvim
-require("lazy").setup({
-	spec = {
-		-- import your plugins
-		{ import = "plugins" },
-		{ import = "plugins.lsp" },
-	},
-	-- Configure any other settings here. See the documentation for more details.
-	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "habamax" } },
-	-- automatically check for plugin updates
-	checker = { enabled = true },
-})
