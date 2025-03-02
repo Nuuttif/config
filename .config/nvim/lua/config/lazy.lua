@@ -51,14 +51,14 @@ vim.keymap.set("n", "<leader>sD", vim.lsp.buf.declaration, { desc = "Show declar
 
 vim.keymap.set("n", "<leader>dd", vim.lsp.buf.hover, { desc = "Display docs" })
 vim.keymap.set("n", "<leader>dp", vim.diagnostic.open_float, { desc = "Display diagnostics" })
-vim.keymap.set("n", "<leader>]p", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<leader>[p", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "<C-l>", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+vim.keymap.set("n", "<C-h>", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 
 vim.keymap.set("n", "<leader>rs", "LspRestart<CR>", { desc = "Restart lsp" })
 
 -- Telescope git
-vim.keymap.set("n", "<leader>sg", builtin.git_status, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>sg", builtin.git_status, { desc = "Telescope git status" })
+vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git branches" })
 
 -- Telescope file-browser
 vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
@@ -69,19 +69,19 @@ vim.keymap.set("n", "<leader>t", function()
 end, { desc = "Show directory tree" })
 
 -- File creation
-vim.keymap.set("n", "<leader>cd", function()
-	local file = vim.fn.input("Create dir: ")
-	if file ~= "" then
-		vim.cmd("!mkdir " .. file)
-	end
-end, { desc = "Create directory" })
-
-vim.keymap.set("n", "<leader>cf", function()
-	local file = vim.fn.input("Create file: ")
-	if file ~= "" then
-		vim.cmd("!touch " .. file)
-	end
-end, { desc = "Create file" })
+-- vim.keymap.set("n", "<leader>cd", function()
+-- 	local file = vim.fn.input("Create dir: ")
+-- 	if file ~= "" then
+-- 		vim.cmd("!mkdir " .. file)
+-- 	end
+-- end, { desc = "Create directory" })
+--
+-- vim.keymap.set("n", "<leader>cf", function()
+-- 	local file = vim.fn.input("Create file: ")
+-- 	if file ~= "" then
+-- 		vim.cmd("!touch " .. file)
+-- 	end
+-- end, { desc = "Create file" })
 
 -- window management
 vim.keymap.set("n", "<leader>n", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
