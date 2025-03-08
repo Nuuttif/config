@@ -34,6 +34,7 @@ return {
 				"emmet_ls",
 				"ts_ls",
 				"gopls",
+				"jdtls",
 				-- "basedpyright",
 			},
 			automatic_installation = true,
@@ -49,6 +50,11 @@ return {
 				-- "isort", -- python import sorter
 				-- "black", -- python formatter
 			},
+			-- integrations = {
+			-- 	["mason-lspconfig"] = true,
+			-- 	["mason-null-ls"] = true,
+			-- 	["mason-nvim-dap"] = true,
+			-- },
 		})
 	end,
 }
