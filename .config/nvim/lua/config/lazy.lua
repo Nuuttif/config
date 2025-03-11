@@ -23,6 +23,13 @@ vim.g.maplocalleader = "\\"
 vim.opt.number = true
 vim.api.nvim_set_option("clipboard", "unnamed")
 
+local function insertFullPath()
+	local filepath = vim.fn.expand("%")
+	vim.fn.setreg("+", filepath) -- write to clippoard
+end
+
+vim.keymap.set("n", "<leader>cp", insertFullPath, { noremap = true, silent = true })
+
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
