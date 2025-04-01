@@ -28,7 +28,7 @@ local function insertFullPath()
 	vim.fn.setreg("+", filepath) -- write to clippoard
 end
 
-vim.keymap.set("n", "<leader>cp", insertFullPath, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>cs", insertFullPath, { noremap = true, silent = true })
 
 -- Setup lazy.nvim
 require("lazy").setup({
