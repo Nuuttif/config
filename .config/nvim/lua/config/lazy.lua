@@ -70,11 +70,6 @@ vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git b
 -- Telescope file-browser
 vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
 
--- Display directory tree
-vim.keymap.set("n", "<leader>t", function()
-	vim.cmd("!tree")
-end, { desc = "Show directory tree" })
-
 -- File creation
 -- vim.keymap.set("n", "<leader>cd", function()
 -- 	local file = vim.fn.input("Create dir: ")
@@ -93,8 +88,8 @@ end, { desc = "Show directory tree" })
 -- window management
 vim.keymap.set("n", "<leader>n", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 vim.keymap.set("n", "<leader>l", "<C-w>w", { desc = "Move to next window" }) -- Move to next window
-vim.keymap.set("n", "<leader>j", "<C-w>w", { desc = "Move to next window" }) -- Move to next window
-vim.keymap.set("n", "<leader>w", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to prev window" }) -- Move to next window
+vim.keymap.set("n", "<leader>q", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 -- Custom gofmt write file on filesave if conform or mason formatter breaks.
 --[[
