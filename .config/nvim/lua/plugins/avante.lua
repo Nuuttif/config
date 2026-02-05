@@ -9,7 +9,16 @@ return {
 		-- this file can contain specific instructions for your project
 		-- instructions_file = "avante.md",
 		-- for example
-		provider = "copilot",
+		-- provider = "copilot",
+		provider = "ollama",
+		providers = {
+			ollama = {
+				model = "glm-4.7-flash-q4-32k",
+				-- is_env_set = function()
+				-- 	return require("avante.providers.ollama").check_endpoint_alive()
+				-- end,
+			},
+		},
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",

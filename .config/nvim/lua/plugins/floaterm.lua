@@ -8,7 +8,7 @@ return {
 
 		terminals = {
 			{ name = "Terminal" },
-			{ name = "Copilot" },
+			{ name = "Opencode", cmd = "ollama launch opencode" },
 		},
 
 		mappings = {
