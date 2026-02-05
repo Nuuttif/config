@@ -51,6 +51,11 @@ sudo snap install go --classic
 brew install ripgrep lazygit tree go
 ```
 
+### For AI
+```
+brew install copilot-cli
+```
+
 ## Install neovim config
 ```
 cp -R .config/nvim ~/.config/
