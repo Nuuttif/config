@@ -4,7 +4,7 @@ return {
 	cmd = "FloatermToggle", -- lazy-load when first used
 	opts = {
 		border = true,
-		-- size = { h = 0.8, w = 0.8 }, TODO: fix size option.
+		size = { h = 90, w = 99 },
 
 		terminals = {
 			{ name = "Terminal" },

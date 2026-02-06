@@ -10,14 +10,22 @@ return {
 		-- instructions_file = "avante.md",
 		-- for example
 		-- provider = "copilot",
+		enable_token_counting = true,
 		provider = "ollama",
+		auto_approve_tool_permissions = false,
 		providers = {
 			ollama = {
-				model = "glm-4.7-flash-q4-32k",
-				-- is_env_set = function()
-				-- 	return require("avante.providers.ollama").check_endpoint_alive()
-				-- end,
+
+				model = "qwen2.5-coder-instruct-14b-16k",
+				max_tokens = 4096,
+				disable_tools = true,
 			},
+		},
+		-- Define top-level key mappings for avante functionality
+		mappings = {
+			ask = "<Leader>aa",
+			edit = "<Leader>ae",
+			refresh = "<Leader>ar",
 		},
 	},
 	dependencies = {
@@ -55,4 +63,45 @@ return {
 			ft = { "markdown", "Avante" },
 		},
 	},
+	keys = function(_, keys)
+		---@type avante.Config
+		local opts =
+			require("lazy.core.plugin").values(require("lazy.core.config").spec.plugins["avante.nvim"], "opts", false)
+
+		-- Default avante key mappings.
+		local mappings = {
+			{
+				opts.mappings.ask,
+				function()
+					require("avante.api").ask()
+				end,
+				desc = "avante: ask",
+				mode = { "n", "v" },
+			},
+			{
+				opts.mappings.refresh,
+				function()
+					require("avante.api").refresh()
+				end,
+				desc = "avante: refresh",
+				mode = "v",
+			},
+			{
+				opts.mappings.edit,
+				function()
+					require("avante.api").edit()
+				end,
+				desc = "avante: edit",
+				mode = { "n", "v" },
+			},
+			-- Define custom mappings here.
+		}
+
+		-- Filter out nil keys (for keys that return nil)
+		mappings = vim.tbl_filter(function(m)
+			return m[1] and #m[1] > 0
+		end, mappings)
+
+		return vim.list_extend(mappings, keys)
+	end,
 }
