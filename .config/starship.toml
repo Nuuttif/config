@@ -1,0 +1,18 @@
+[gcloud]
+disabled = true
+
+[package]
+disabled = true
+
+[vagrant]
+disabled = true
+
+[git_status]
+modified = '✎'
+staged = '+'
+stashed = ''
+
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[✗](bold red)'
+
