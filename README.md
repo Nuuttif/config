@@ -7,8 +7,8 @@ This repository contains my personal configuration files for Neovim, terminal to
 The easiest way to install everything is using the provided install script:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone git@github.com:Nuuttif/config.git
+cd config
 ./install.sh
 ```
 
