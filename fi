@@ -38,42 +38,42 @@ xkb_symbols "kotoistus" {
     key <AE12> { [  dead_acute,      dead_grave,       dead_cedilla,          dead_ogonek           ] };
 
     key <AD01> { [  apostrophe,               quotedbl,                bracketleft                     ] };
-    key <AD02> { [  comma,               aring,                Aring      ] };
-    key <AD03> { [  period,               odiaeresis,                Odiaeresis  ] };
-    key <AD04> { [  p,               P,                bracketright,                     R                     ] };
-    key <AD05> { [  y,               Y,                thorn,                 THORN                 ] };
+    key <AD02> { [  u,               U,                Aring      ] };
+    key <AD03> { [  o,               O,                Odiaeresis  ] };
+    key <AD04> { [  g,               G,                bracketright,                     R                     ] };
+    key <AD05> { [  j,               J,                thorn,                 THORN                 ] };
     key <AD06> { [  f,               F,                y,                     Y                     ] };
-    key <AD07> { [  g,               G,                u,                     U                     ] };
-    key <AD08> { [  c,               C,                less,              bar                   ] };
+    key <AD07> { [  d,               D,                u,                     U                     ] };
+    key <AD08> { [  l,               L,                less,              bar                   ] };
     key <AD09> { [  r,               R,                greater,                    OE                    ] };
-    key <AD10> { [  l,               L,                ampersand,             dead_hook             ] };
+    key <AD10> { [  v,               V,                ampersand,             dead_hook             ] };
     key <AD11> { [  question,           minus,            numbersign,      dead_abovering        ] };
     key <AD12> { [  exclam,  plus,  dead_tilde,            dead_macron           ] };
 
     key <AC01> { [  a,               A,                braceleft,                 SCHWA                 ] };
-    key <AC02> { [  o,               O,                parenleft,                U1E9E                 ] };
+    key <AC02> { [  i,               I,                parenleft,                U1E9E                 ] };
     key <AC03> { [  e,               E,                parenright,                   ETH                   ] };
-    key <AC04> { [  u,               U,                braceright,                     F                     ] };
-    key <AC05> { [  i,               I,                g,                     G                     ] };
-    key <AC06> { [  d,               D,                at,                     H                     ] };
+    key <AC04> { [  c,               C,                braceright,                     F                     ] };
+    key <AC05> { [  y,               Y,                g,                     G                     ] };
+    key <AC06> { [  k,               K,                at,                     H                     ] };
     key <AC07> { [  h,               H,                asterisk,                     J                     ] };
     key <AC08> { [  t,               T,                percent,                   NoSymbol              ] };
     key <AC09> { [  n,               N,                slash,           NoSymbol              ] };
     key <AC10> { [  s,      S,       backslash,                Oslash                ] };
-    key <AC11> { [  semicolon,      colon,       bar,                    AE                    ] };
+    key <AC11> { [  colon,      semicolon,       bar,                    AE                    ] };
     key <BKSL> { [  equal,      underscore,         grave,            dead_breve            ] };
 
     key <LSGT> { [  odiaeresis,            Odiaeresis,          bar,                   NoSymbol              ] };
-    key <AB01> { [  adiaeresis,               Adiaeresis,                ezh,                   EZH                   ] };
-    key <AB02> { [  q,               Q,                multiply,              periodcentered        ] };
-    key <AB03> { [  j,               J,                0,                     C                     ] };
-    key <AB04> { [  k,               K,                dollar,                     V                     ] };
-    key <AB05> { [  x,               X,                b,                     B                     ] };
+    key <AB01> { [  comma,               odiaeresis,                Odiaeresis,                   EZH                   ] };
+    key <AB02> { [  period,               Q,                multiply,              periodcentered        ] };
+    key <AB03> { [  adiaeresis,               Adiaeresis,                k,                     C                     ] };
+    key <AB04> { [  w,               W,                j,                     V                     ] };
+    key <AB05> { [  p,               P,                b,                     B                     ] };
     key <AB06> { [  b,               B,                eng,                   ENG                   ] };
-    key <AB07> { [  m,               M,                mu,                    emdash                ] };
-    key <AB08> { [  w,           W,        rightsinglequotemark,  leftsinglequotemark   ] };
-    key <AB09> { [  v,          V,            dead_belowdot,         dead_abovedot         ] };
-    key <AB10> { [  z,           Z,       endash,                dead_belowcomma       ] };
+    key <AB07> { [  m,               M,                0,                     emdash                ] };
+    key <AB08> { [  q,          Q,        	       dollar,  leftsinglequotemark   ] };
+    key <AB09> { [  x,          X,            dollar,         dead_abovedot         ] };
+    key <AB10> { [  z,          Z,       endash,                dead_belowcomma       ] };
 
     include "nbsp(level4)"
     include "nbsp(level3)"

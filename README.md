@@ -1,6 +1,6 @@
 # Dotfiles
 
-This repository contains my personal configuration files for Neovim, terminal tools, and custom keyboard layouts.
+This repository contains my personal configuration files for Neovim, terminal tools, and the Compound-vim-fi keyboard layout.
 
 ## Quick Install
 
@@ -18,7 +18,7 @@ cd <repository-directory>
 ./install.sh --help          # Show help
 ./install.sh --dry-run       # Preview what would be installed
 ./install.sh --fonts         # Include JetBrainsMono Nerd Font
-./install.sh --keyboard      # Include keyboard layout (macOS only)
+./install.sh --keyboard      # Include Compound-vim-fi keyboard layout (macOS only)
 ./install.sh --all           # Install everything including optional components
 ```
 
@@ -109,7 +109,9 @@ cp .config/starship.toml ~/.config/
 cp .wezterm.lua ~/
 ```
 
-## Keyboard Layouts
+## Keyboard Layout (Compound-vim-fi)
+
+A custom keyboard layout optimized for Finnish and Vim usage.
 
 ### macOS
 Copy the keyboard layout to the system:
@@ -119,10 +121,11 @@ cp "Compound-vim-fi.keylayout" ~/Library/Keyboard\ Layouts/
 Then add it in **System Preferences > Keyboard > Input Sources**
 
 ### Linux (Ubuntu)
-Install the Finnish Dvorak layout:
+Install the Compound-vim-fi layout:
 ```bash
-sudo cp fi /usr/share/X11/xkb/symbols
+sudo cp fi /usr/share/X11/xkb/symbols/fi
 ```
+Then add it via system settings or using `setxkbmap fi`.
 
 ## Post-Installation
 
@@ -167,9 +170,8 @@ rm /tmp/JetBrainsMono.zip
 │   │       └── plugins/
 │   └── starship.toml      # Starship prompt config
 ├── .wezterm.lua           # WezTerm terminal config
-├── fi                     # Finnish Dvorak keyboard (Linux)
-├── Compound-vim-fi.keylayout  # Custom keyboard layout (macOS)
-├── Finnish Dvorak.keylayout   # Finnish Dvorak (macOS)
+├── fi                     # Compound-vim-fi keyboard layout (Linux)
+├── Compound-vim-fi.keylayout  # Compound-vim-fi keyboard layout (macOS)
 ├── install.sh             # Automated install script
 └── README.md
 ```

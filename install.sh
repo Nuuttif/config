@@ -45,7 +45,7 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Options:"
             echo "  --fonts       Install JetBrainsMono Nerd Font"
-            echo "  --keyboard    Install keyboard layout (Compound-vim-fi on macOS)"
+            echo "  --keyboard    Install Compound-vim-fi keyboard layout (macOS)"
             echo "  --dry-run     Show what would be done without executing"
             echo "  --all         Enable all optional features"
             echo "  --help        Show this help message"
@@ -356,22 +356,22 @@ install_fonts() {
     echo -e "${YELLOW}⚠️  Remember to set the font in your terminal preferences!${NC}"
 }
 
-# Install keyboard layout
+# Install Compound-vim-fi keyboard layout
 install_keyboard() {
-    print_section "Installing Keyboard Layout"
+    print_section "Installing Compound-vim-fi Keyboard Layout"
     
     if [ "$OS" = "macos" ]; then
         local keyboard_file="$SCRIPT_DIR/Compound-vim-fi.keylayout"
         if [ -f "$keyboard_file" ]; then
             echo -e "${YELLOW}Installing Compound-vim-fi.keylayout...${NC}"
             run_cmd "cp '$keyboard_file' '$HOME/Library/Keyboard Layouts/'"
-            echo -e "${GREEN}Keyboard layout installed. Add it in System Preferences > Keyboard > Input Sources${NC}"
+            echo -e "${GREEN}Compound-vim-fi keyboard layout installed. Add it in System Preferences > Keyboard > Input Sources${NC}"
         else
             echo -e "${RED}Warning: Compound-vim-fi.keylayout not found in repository${NC}"
         fi
     else
-        echo -e "${YELLOW}Linux keyboard layout installation not automated.${NC}"
-        echo -e "${YELLOW}Run manually: sudo cp '$SCRIPT_DIR/fi' /usr/share/X11/xkb/symbols/${NC}"
+        echo -e "${YELLOW}Linux Compound-vim-fi layout installation not automated.${NC}"
+        echo -e "${YELLOW}Run manually: sudo cp '$SCRIPT_DIR/fi' /usr/share/X11/xkb/symbols/fi${NC}"
     fi
 }
 
