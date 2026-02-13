@@ -206,7 +206,7 @@ install_go() {
 install_node() {
     print_section "Installing Node.js (via nvm)"
     
-    if command_exists nvm; then
+    if [ -s "$HOME/.nvm/nvm.sh" ]; then
         echo -e "${GREEN}nvm already installed${NC}"
     else
         echo -e "${YELLOW}Installing nvm...${NC}"
@@ -335,7 +335,6 @@ install_fonts() {
         if brew list font-jetbrains-mono-nerd-font &> /dev/null; then
             echo -e "${GREEN}JetBrainsMono Nerd Font already installed${NC}"
         else
-            run_cmd "brew tap homebrew/cask-fonts"
             run_cmd "brew install --cask font-jetbrains-mono-nerd-font"
         fi
     else
