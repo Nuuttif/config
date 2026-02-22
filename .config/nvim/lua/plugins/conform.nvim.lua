@@ -10,10 +10,16 @@ return {
 				javascript = { "prettierd", "eslint_d" },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
+				java = { "google-java-format" },
 				-- Conform will run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				-- Conform will run the first available formatter
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+			},
+			formatters = {
+				["google-java-format"] = {
+					prepend_args = { "--aosp" },
+				},
 			},
 			format_on_save = {
 				-- These options will be passed to conform.format()

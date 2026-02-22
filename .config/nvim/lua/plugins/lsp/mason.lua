@@ -47,6 +47,7 @@ return {
 				"stylua", -- lua formatter
 				"goimports",
 				"gofumpt",
+				"google-java-format",
 				-- "isort", -- python import sorter
 				-- "black", -- python formatter
 			},
