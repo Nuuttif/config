@@ -231,6 +231,18 @@ install_node() {
     fi
 }
 
+# Install Prettier
+install_prettier() {
+    print_section "Installing Prettier"
+    
+    if command_exists prettier; then
+        echo -e "${GREEN}Prettier already installed${NC}"
+        return
+    fi
+    
+    run_cmd "npm install -g prettier"
+}
+
 # Install WezTerm
 install_wezterm() {
     print_section "Installing WezTerm"
@@ -520,6 +532,7 @@ main() {
     install_lazygit
     install_go
     install_node
+    install_prettier
     install_wezterm
     install_starship
     install_lsd

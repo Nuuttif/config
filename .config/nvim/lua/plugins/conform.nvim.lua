@@ -10,6 +10,7 @@ return {
 				javascript = { "prettierd", "eslint_d" },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
+				json = { "prettier" },
 				java = { "google-java-format" },
 				-- Conform will run multiple formatters sequentially
 				-- python = { "isort", "black" },
