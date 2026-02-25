@@ -67,8 +67,10 @@ vim.keymap.set("n", "<leader>rs", "LspRestart<CR>", { desc = "Restart lsp" })
 vim.keymap.set("n", "<leader>sg", builtin.git_status, { desc = "Telescope git status" })
 vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git branches" })
 
+-- NOTE: Removed since file_browser requires me to manually traverse directory structure,
+-- missing the main point of Telescope for me: fuzzy-finding.
 -- Telescope file-browser
-vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
+-- vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
 
 -- File creation
 -- vim.keymap.set("n", "<leader>cd", function()
@@ -91,6 +93,18 @@ vim.keymap.set("n", "<leader>l", "<C-w>w", { desc = "Move to next window" }) -- 
 vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to prev window" }) -- Move to next window
 vim.keymap.set("n", "<leader>q", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
+-- Save current messages to a file
+function LogMessages()
+	local logfile = vim.fn.expand("~/tmp/nvim_messages.log")
+	local f = io.open(logfile, "w")
+	if f then
+		f:write(vim.fn.execute("messages"))
+		f:close()
+	end
+	print("Messages saved to " .. logfile)
+end
+
+vim.api.nvim_create_user_command("LogMessages", LogMessages, { desc = "Log error messages to ~/tpm/nvim_messages.log" })
 -- Custom gofmt write file on filesave if conform or mason formatter breaks.
 --[[
 vim.api.nvim_create_autocmd("BufWritePost", {
