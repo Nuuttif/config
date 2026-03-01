@@ -25,10 +25,15 @@ vim.api.nvim_set_option("clipboard", "unnamed")
 
 local function insertFullPath()
 	local filepath = vim.fn.expand("%")
-	vim.fn.setreg("+", filepath) -- write to clippoard
+	vim.fn.setreg("+", filepath) -- write to clipboard
 end
 
-vim.keymap.set("n", "<leader>cs", insertFullPath, { noremap = true, silent = true })
+vim.keymap.set(
+	"n",
+	"<leader>cs",
+	insertFullPath,
+	{ noremap = true, silent = true, desc = "Copy filepath to clipboard" }
+)
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -71,21 +76,6 @@ vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git b
 -- missing the main point of Telescope for me: fuzzy-finding.
 -- Telescope file-browser
 -- vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
-
--- File creation
--- vim.keymap.set("n", "<leader>cd", function()
--- 	local file = vim.fn.input("Create dir: ")
--- 	if file ~= "" then
--- 		vim.cmd("!mkdir " .. file)
--- 	end
--- end, { desc = "Create directory" })
---
--- vim.keymap.set("n", "<leader>cf", function()
--- 	local file = vim.fn.input("Create file: ")
--- 	if file ~= "" then
--- 		vim.cmd("!touch " .. file)
--- 	end
--- end, { desc = "Create file" })
 
 -- window management
 vim.keymap.set("n", "<leader>n", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
