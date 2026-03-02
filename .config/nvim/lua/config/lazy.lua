@@ -23,18 +23,6 @@ vim.g.maplocalleader = "\\"
 vim.opt.number = true
 vim.api.nvim_set_option("clipboard", "unnamed")
 
-local function insertFullPath()
-	local filepath = vim.fn.expand("%")
-	vim.fn.setreg("+", filepath) -- write to clipboard
-end
-
-vim.keymap.set(
-	"n",
-	"<leader>cs",
-	insertFullPath,
-	{ noremap = true, silent = true, desc = "Copy filepath to clipboard" }
-)
-
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
@@ -49,35 +37,32 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
--- Telescope
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader><Tab>", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>ss", builtin.live_grep, { desc = "Telescope live grep" })
-vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "Telescope buffers" })
+-- Write current filepath to clipboard
+local function insertFullPath()
+	local filepath = vim.fn.expand("%")
+	vim.fn.setreg("+", filepath) -- write to clipboard
+end
 
--- Telescope lsp
-vim.keymap.set("n", "<leader>st", builtin.lsp_type_definitions, { desc = "Telescope type definitions" })
-vim.keymap.set("n", "<leader>si", builtin.lsp_implementations, { desc = "Telescope implementations" })
-vim.keymap.set("n", "<leader>sd", builtin.lsp_definitions, { desc = "Telescope definitions" })
-vim.keymap.set("n", "<leader>sD", vim.lsp.buf.declaration, { desc = "Show declaration" })
-
-vim.keymap.set("n", "<leader>dd", vim.lsp.buf.hover, { desc = "Display docs" })
-vim.keymap.set("n", "<leader>dp", vim.diagnostic.open_float, { desc = "Display diagnostics" })
-vim.keymap.set("n", "<C-l>", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<C-h>", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+-- Set keybind for copying current filepath to clipboard
+vim.keymap.set(
+	"n",
+	"<leader>cs",
+	insertFullPath,
+	{ noremap = true, silent = true, desc = "Copy filepath to clipboard" }
+)
 
 vim.keymap.set("n", "<leader>rs", "LspRestart<CR>", { desc = "Restart lsp" })
 
--- Telescope git
-vim.keymap.set("n", "<leader>sg", builtin.git_status, { desc = "Telescope git status" })
-vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git branches" })
+-- LSP keybinds
+vim.keymap.set("n", "<leader>sD", vim.lsp.buf.declaration, { desc = "Show declaration" })
+vim.keymap.set("n", "<leader>dd", vim.lsp.buf.hover, { desc = "Display docs" })
+vim.keymap.set("n", "<C-l>", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+vim.keymap.set("n", "<C-h>", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 
--- NOTE: Removed since file_browser requires me to manually traverse directory structure,
--- missing the main point of Telescope for me: fuzzy-finding.
--- Telescope file-browser
--- vim.keymap.set("n", "<space>sf", ":Telescope file_browser<CR>")
+-- Diagnostics keybinds
+vim.keymap.set("n", "<leader>dp", vim.diagnostic.open_float, { desc = "Display diagnostics" })
 
--- window management
+-- Window management
 vim.keymap.set("n", "<leader>n", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 vim.keymap.set("n", "<leader>l", "<C-w>w", { desc = "Move to next window" }) -- Move to next window
 vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to prev window" }) -- Move to next window
@@ -95,6 +80,7 @@ function LogMessages()
 end
 
 vim.api.nvim_create_user_command("LogMessages", LogMessages, { desc = "Log error messages to ~/tpm/nvim_messages.log" })
+
 -- Custom gofmt write file on filesave if conform or mason formatter breaks.
 --[[
 vim.api.nvim_create_autocmd("BufWritePost", {
