@@ -6,7 +6,9 @@ return {
 	config = function()
 		require("amadeus").setup({
 			llm = {
-				model = "zen/minimax-m2.5-free",
+				-- model = "zen/big-pickle",
+				-- model = "zen/minimax-m2.5-free",
+				model = "bailian-coding-plan/glm-5",
 			},
 		})
 	end,
