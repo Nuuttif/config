@@ -6,9 +6,14 @@ return {
 	config = function()
 		require("amadeus").setup({
 			llm = {
+				-- provider = "opencode",
 				-- model = "zen/big-pickle",
 				-- model = "zen/minimax-m2.5-free",
-				model = "bailian-coding-plan/glm-5",
+				-- model = "bailian-coding-plan/glm-5",
+
+				provider = "claude",
+				model = "qwen3.5-plus",
+				-- model = "kimi-k2.5",
 			},
 		})
 	end,
