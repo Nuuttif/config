@@ -45,8 +45,12 @@ return {
 		vim.keymap.set("n", "<leader>si", builtin.lsp_implementations, { desc = "Telescope implementations" })
 		vim.keymap.set("n", "<leader>sd", builtin.lsp_definitions, { desc = "Telescope definitions" })
 
-		-- Telescope git
-		vim.keymap.set("n", "<leader>sg", builtin.git_status, { desc = "Telescope git status" })
-		vim.keymap.set("n", "<leader>b", builtin.git_branches, { desc = "Telescope git branches" })
+		vim.keymap.set("n", "<leader>sg", function()
+			builtin.git_status({ initial_mode = "normal" })
+		end, { desc = "Telescope git modified" })
+
+		vim.keymap.set("n", "<leader>gb", function()
+			builtin.git_branches({ initial_mode = "normal" })
+		end, { desc = "Telescope git branches" })
 	end,
 }
