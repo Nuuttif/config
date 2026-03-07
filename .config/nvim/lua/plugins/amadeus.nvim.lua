@@ -5,6 +5,7 @@ return {
 
 	config = function()
 		require("amadeus").setup({
+			log_level = "info",
 			llm = {
 				-- provider = "opencode",
 				-- model = "zen/big-pickle",
@@ -12,7 +13,8 @@ return {
 				-- model = "bailian-coding-plan/glm-5",
 
 				provider = "claude",
-				model = "qwen3.5-plus",
+				model = "glm-5",
+				-- model = "qwen3.5-plus",
 				-- model = "kimi-k2.5",
 			},
 		})

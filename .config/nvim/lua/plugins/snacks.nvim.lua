@@ -5,10 +5,20 @@ return {
 	---@type snacks.Config
 	opts = {
 		scope = { enabled = true },
-		indent = { enabled = true },
-		notifier = { enabled = true },
+		-- indent = { enabled = true },
+		-- notifier = { enabled = true },
 		input = { enabled = true },
-		image = { enabled = true },
+		notifier = {
+			enabled = true,
+			-- Use these when debugging: (debug keyword for search)
+			-- timeout = 0, -- 10 seconds
+			-- max_height = function()
+			-- 	return math.floor(vim.o.lines * 0.7) -- 70% of editor height
+			-- end,
+			-- max_width = function()
+			-- 	return math.floor(vim.o.columns * 0.7) -- 70% of editor width
+			-- end,
+		},
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
