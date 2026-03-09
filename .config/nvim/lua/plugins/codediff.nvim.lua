@@ -10,8 +10,8 @@ return {
 				focus_explorer = "<leader>e", -- Focus explorer panel (explorer mode only)
 				next_hunk = "<C-l>", -- Jump to next change
 				prev_hunk = "<C-h>", -- Jump to previous change
-				next_file = "<leader>l", -- Next file in explorer/history mode
-				prev_file = "<leader>h", -- Previous file in explorer/history mode
+				next_file = "<leader>n", -- Next file in explorer/history mode
+				prev_file = "<leader>N", -- Previous file in explorer/history mode
 				diff_get = "do", -- Get change from other buffer (like vimdiff)
 				diff_put = "dp", -- Put change to other buffer (like vimdiff)
 				open_in_prev_tab = "gf", -- Open current buffer in previous tab (or create one before)

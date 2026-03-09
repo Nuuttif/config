@@ -14,7 +14,7 @@ return {
 		mappings = {
 			term = function(buf)
 				-- Go to vim normal mode. -> then use toggle keybind to close terminal <leader>tt.
-				vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { buffer = buf, desc = "Exit terminal mode" })
+				vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { buffer = buf, desc = "Exit terminal mode" })
 
 				-- Next terminal
 				vim.keymap.set({ "n", "t" }, "<C-h>", function()
@@ -29,6 +29,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>tt", "<cmd>FloatermToggle<CR>", desc = "Toggle Floaterm" },
+		{ "<leader>t", "<cmd>FloatermToggle<CR>", desc = "Toggle Floaterm" },
 	},
 }

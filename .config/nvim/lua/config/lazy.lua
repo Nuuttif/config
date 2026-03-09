@@ -64,8 +64,8 @@ vim.keymap.set("n", "<leader>dp", vim.diagnostic.open_float, { desc = "Display d
 
 -- Window management
 -- vim.keymap.set("n", "<leader>n", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
-vim.keymap.set("n", "<leader>n", "<C-w>w", { desc = "Move to next window" }) -- Move to next window
-vim.keymap.set("n", "<leader>N", "<C-w>h", { desc = "Move to prev window" }) -- Move to next window
+vim.keymap.set("n", "<leader>l", "<C-w>w", { desc = "Move to next window" }) -- Move to next window
+vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to prev window" }) -- Move to next window
 vim.keymap.set("n", "<leader>q", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 -- Save current messages to a file
@@ -80,6 +80,8 @@ function LogMessages()
 end
 
 vim.api.nvim_create_user_command("LogMessages", LogMessages, { desc = "Log error messages to ~/tpm/nvim_messages.log" })
+
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { silent = true })
 
 -- Custom gofmt write file on filesave if conform or mason formatter breaks.
 --[[
