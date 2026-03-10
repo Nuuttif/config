@@ -31,6 +31,40 @@ cmdf() {
   print -z "$cmd"
 }
 
+cmdfe() {
+  local dry_run=0
+  # check for --dry flag
+  if [[ "$1" == "--dry" ]]; then
+    dry_run=1
+    shift  # remove the flag from $1
+  fi
+
+  local cmd tmp edited
+
+  # pick a command from history
+  cmd=$(fc -ln -90000 2>/dev/null | fzf --tac --height 40% --reverse) || return
+
+  # create a temporary file
+  tmp=$(mktemp) || return
+  echo "$cmd" > "$tmp"
+
+  # open in user's editor (fallback to nvim)
+  "${EDITOR:-nvim}" "$tmp" || return
+
+  # read back edited command
+  edited=$(<"$tmp")
+  rm -f "$tmp"
+
+  if [[ -n "$edited" ]]; then
+    if [[ $dry_run -eq 1 ]]; then
+      echo "[DRY RUN] $edited"
+    else
+      print -s -- "$edited"  # save to history
+      eval "$edited"
+    fi
+  fi
+}
+
 killf() {
     local pid
     pid=$(ps aux | fzf --height 40% --reverse --preview 'echo {}; echo; echo "Press Enter to kill this process"' | awk '{print $2}')
