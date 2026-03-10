@@ -314,27 +314,48 @@ install_zsh_syntax_highlighting() {
 # Install ripgrep and tree
 install_basic_tools() {
     print_section "Installing Basic Tools"
-    
+
     if [ "$OS" = "macos" ]; then
         install_package "ripgrep" "ripgrep"
         install_package "tree" "tree"
+        install_package "fd" "fd-find"
+        install_package "fzf" "fzf"
+        install_package "eza" "eza"
     else
         if ! command_exists rg; then
             run_cmd "sudo apt-get install -y ripgrep"
         else
             echo -e "${GREEN}ripgrep already installed${NC}"
         fi
-        
+
         if ! command_exists tree; then
             run_cmd "sudo apt-get install -y tree"
         else
             echo -e "${GREEN}tree already installed${NC}"
         fi
-        
+
         if ! command_exists git; then
             run_cmd "sudo apt-get install -y git"
         else
             echo -e "${GREEN}git already installed${NC}"
+        fi
+
+        if ! command_exists fdfind && ! command_exists fd; then
+            run_cmd "sudo apt-get install -y fd-find"
+        else
+            echo -e "${GREEN}fd-find already installed${NC}"
+        fi
+
+        if ! command_exists fzf; then
+            run_cmd "sudo apt-get install -y fzf"
+        else
+            echo -e "${GREEN}fzf already installed${NC}"
+        fi
+
+        if ! command_exists eza; then
+            run_cmd "sudo apt-get install -y eza"
+        else
+            echo -e "${GREEN}eza already installed${NC}"
         fi
     fi
 }
@@ -442,34 +463,21 @@ update_zshrc() {
         zsh_syntax_path="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     fi
     
-    # Use a temporary file to build the config block (avoids escaping issues)
+    # Read template and substitute the placeholder
     local temp_config=$(mktemp)
-    cat > "$temp_config" << EOF
-# === DOTFILES CONFIG START ===
-# Enable colors in terminal
-export CLICOLOR=1
-export LSCOLORS=Gxfxcxdxbxegedabagacad
-
-# Tell the terminal we are using a 256-color/TrueColor environment
-export TERM=xterm-256color
-
-# zsh-syntax-highlighting
-if [ -f $zsh_syntax_path ]; then
-    source $zsh_syntax_path
-fi
-
-# Starship prompt
-eval "\$(starship init zsh)"
-
-# Pretty ls
-alias ls='lsd --color always --icon always'
-
-# Set default terminal editor
-export VISUAL=nvim
-export EDITOR="\$VISUAL"
-export CVS_EDITOR=nvim
-# === DOTFILES CONFIG END ===
-EOF
+    local template_file="$SCRIPT_DIR/zshrc.template"
+    
+    if [ ! -f "$template_file" ]; then
+        echo -e "${RED}Error: zshrc.template not found at $template_file${NC}"
+        return 1
+    fi
+    
+    # Add marker start, substitute the path, and add marker end
+    {
+        echo "# === DOTFILES CONFIG START ==="
+        sed "s|{{ZSH_SYNTAX_PATH}}|$zsh_syntax_path|g" "$template_file"
+        echo "# === DOTFILES CONFIG END ==="
+    } > "$temp_config"
 
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}[DRY RUN] Would append to $zshrc:${NC}"
@@ -564,10 +572,9 @@ main() {
     echo -e "${GREEN}Next steps:${NC}"
     echo -e "  1. ${YELLOW}Restart your terminal${NC} or run: ${BLUE}source ~/.zshrc${NC}"
     echo -e "  2. ${YELLOW}Open nvim${NC} and wait for Mason to install LSP servers"
-    echo -e "  3. ${YELLOW}Configure GitHub Copilot${NC} in nvim: ${BLUE}:Copilot auth${NC}"
     
     if [ "$INSTALL_FONTS" = true ]; then
-        echo -e "  4. ${YELLOW}Set your terminal font${NC} to JetBrainsMono Nerd Font"
+        echo -e "  3. ${YELLOW}Set your terminal font${NC} to JetBrainsMono Nerd Font"
     fi
     
     echo -e "\n${GREEN}Happy coding! 🚀${NC}"

@@ -1,0 +1,43 @@
+# Enable colors in terminal
+export CLICOLOR=1
+export LSCOLORS=Gxfxcxdxbxegedabagacad
+
+# Tell the terminal we are using a 256-color/TrueColor environment
+export TERM=xterm-256color
+
+# zsh-syntax-highlighting
+if [ -f {{ZSH_SYNTAX_PATH}} ]; then
+    source {{ZSH_SYNTAX_PATH}}
+fi
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+# Pretty ls
+alias ls='lsd --color always --icon always'
+
+# fzf functions
+cdf() {
+  local dir
+  dir=$(fd -t d '' "${1:-.}" 2>/dev/null | \
+        fzf --height 40% --reverse \
+            --preview 'tree -C -L 2 {} 2>/dev/null | head -200') || return
+  cd "$dir"
+}
+
+cmdf() {
+  local cmd
+  cmd=$(fc -ln -90000 2>/dev/null | fzf --tac --height 40% --reverse) || return
+  print -z "$cmd"
+}
+
+killf() {
+    local pid
+    pid=$(ps aux | fzf --height 40% --reverse --preview 'echo {}; echo; echo "Press Enter to kill this process"' | awk '{print $2}')
+    [[ -n "$pid" ]] && kill -9 "$pid"
+}
+
+# Set default terminal editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export CVS_EDITOR=nvim
