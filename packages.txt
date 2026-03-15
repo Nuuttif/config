@@ -1,0 +1,48 @@
+# Core Hyprland
+hyprland
+xdg-desktop-portal-hyprland
+hyprpaper
+waybar
+mako
+wezterm
+wofi
+# Audio
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+pavucontrol
+# Networking
+networkmanager
+blueman
+xdg-desktop-portal
+broadcom-wl
+# Graphics / GPU acceleration
+mesa
+vulkan-radeon
+# Qt apps Wayland suppo
+qt5-wayland
+qt6-wayland
+# Wayland utilities
+wl-clipboard
+grim
+slurp
+swappy
+brightnessctl
+playerctl
+network-manager-applet
+# File manager and fonts
+thunar
+thunar-archive-plugin
+file-roller
+ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-emoji
+# Power / system management
+tlp
+thermald
+power-profiles-daemon
+acpi
+acpid
+seatd
