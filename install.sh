@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Dotfiles Install Script
-# Supports macOS and Ubuntu
+# Supports macOS, Ubuntu, and Arch Linux
 
 set -e
 
@@ -63,10 +63,12 @@ detect_os() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         OS="macos"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if command -v apt-get &> /dev/null; then
+        if command -v pacman &> /dev/null; then
+            OS="arch"
+        elif command -v apt-get &> /dev/null; then
             OS="ubuntu"
         else
-            echo -e "${RED}Error: This script only supports Ubuntu/Debian on Linux${NC}"
+            echo -e "${RED}Error: This script only supports Ubuntu/Debian or Arch Linux on Linux${NC}"
             exit 1
         fi
     else
@@ -129,6 +131,7 @@ install_homebrew() {
 install_package() {
     local mac_pkg="$1"
     local ubuntu_pkg="$2"
+    local arch_pkg="${3:-$2}"
     
     if [ "$OS" = "macos" ]; then
         if ! brew list "$mac_pkg" &> /dev/null; then
@@ -136,6 +139,13 @@ install_package() {
             run_cmd "brew install $mac_pkg"
         else
             echo -e "${GREEN}$mac_pkg already installed${NC}"
+        fi
+    elif [ "$OS" = "arch" ]; then
+        if ! pacman -Q "$arch_pkg" &> /dev/null; then
+            echo -e "${YELLOW}Installing $arch_pkg...${NC}"
+            run_cmd "sudo pacman -S --noconfirm $arch_pkg"
+        else
+            echo -e "${GREEN}$arch_pkg already installed${NC}"
         fi
     else
         if ! dpkg -l | grep -q "^ii  $ubuntu_pkg "; then
@@ -158,6 +168,8 @@ install_neovim() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install neovim"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm neovim"
     else
         run_cmd "sudo snap install nvim --classic"
     fi
@@ -174,6 +186,8 @@ install_lazygit() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install lazygit"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm lazygit"
     else
         echo -e "${YELLOW}Installing LazyGit from GitHub release...${NC}"
         if [ "$DRY_RUN" = false ]; then
@@ -197,6 +211,8 @@ install_go() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install go"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm go"
     else
         run_cmd "sudo snap install go --classic"
     fi
@@ -254,6 +270,8 @@ install_wezterm() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install --cask wezterm"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm wezterm"
     else
         run_cmd "sudo apt-get install -y wezterm"
     fi
@@ -270,6 +288,8 @@ install_starship() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install starship"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm starship"
     else
         echo -e "${YELLOW}Installing Starship...${NC}"
         run_cmd "curl -sS https://starship.rs/install.sh | sh -s -- -y"
@@ -287,6 +307,8 @@ install_lsd() {
     
     if [ "$OS" = "macos" ]; then
         run_cmd "brew install lsd"
+    elif [ "$OS" = "arch" ]; then
+        run_cmd "sudo pacman -S --noconfirm lsd"
     else
         run_cmd "sudo apt-get install -y lsd"
     fi
@@ -299,6 +321,12 @@ install_zsh_syntax_highlighting() {
     if [ "$OS" = "macos" ]; then
         if ! brew list zsh-syntax-highlighting &> /dev/null; then
             run_cmd "brew install zsh-syntax-highlighting"
+        else
+            echo -e "${GREEN}zsh-syntax-highlighting already installed${NC}"
+        fi
+    elif [ "$OS" = "arch" ]; then
+        if ! pacman -Q zsh-syntax-highlighting &> /dev/null; then
+            run_cmd "sudo pacman -S --noconfirm zsh-syntax-highlighting"
         else
             echo -e "${GREEN}zsh-syntax-highlighting already installed${NC}"
         fi
@@ -316,11 +344,47 @@ install_basic_tools() {
     print_section "Installing Basic Tools"
 
     if [ "$OS" = "macos" ]; then
-        install_package "ripgrep" "ripgrep"
-        install_package "tree" "tree"
-        install_package "fd" "fd-find"
-        install_package "fzf" "fzf"
-        install_package "eza" "eza"
+        install_package "ripgrep" "ripgrep" "ripgrep"
+        install_package "tree" "tree" "tree"
+        install_package "fd" "fd-find" "fd"
+        install_package "fzf" "fzf" "fzf"
+        install_package "eza" "eza" "eza"
+    elif [ "$OS" = "arch" ]; then
+        if ! command_exists rg; then
+            run_cmd "sudo pacman -S --noconfirm ripgrep"
+        else
+            echo -e "${GREEN}ripgrep already installed${NC}"
+        fi
+
+        if ! command_exists tree; then
+            run_cmd "sudo pacman -S --noconfirm tree"
+        else
+            echo -e "${GREEN}tree already installed${NC}"
+        fi
+
+        if ! command_exists git; then
+            run_cmd "sudo pacman -S --noconfirm git"
+        else
+            echo -e "${GREEN}git already installed${NC}"
+        fi
+
+        if ! command_exists fd; then
+            run_cmd "sudo pacman -S --noconfirm fd"
+        else
+            echo -e "${GREEN}fd already installed${NC}"
+        fi
+
+        if ! command_exists fzf; then
+            run_cmd "sudo pacman -S --noconfirm fzf"
+        else
+            echo -e "${GREEN}fzf already installed${NC}"
+        fi
+
+        if ! command_exists eza; then
+            run_cmd "sudo pacman -S --noconfirm eza"
+        else
+            echo -e "${GREEN}eza already installed${NC}"
+        fi
     else
         if ! command_exists rg; then
             run_cmd "sudo apt-get install -y ripgrep"
@@ -459,6 +523,8 @@ update_zshrc() {
         if [[ "$(uname -m)" != "arm64" ]]; then
             zsh_syntax_path="/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
         fi
+    elif [ "$OS" = "arch" ]; then
+        zsh_syntax_path="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     else
         zsh_syntax_path="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     fi
@@ -529,6 +595,9 @@ main() {
     
     if [ "$OS" = "macos" ]; then
         install_homebrew
+    elif [ "$OS" = "arch" ]; then
+        echo -e "${YELLOW}Updating pacman package list...${NC}"
+        run_cmd "sudo pacman -Sy"
     else
         echo -e "${YELLOW}Updating apt package list...${NC}"
         run_cmd "sudo apt-get update"
