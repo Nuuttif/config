@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Requires: fuzzel, jq
+CACHE="$HOME/.cache/fuzzel-spotlight-cache.txt"
+mkdir -p "$(dirname "$CACHE")"
+
+# Handle cache refresh
+if [ "$1" = "--refresh" ]; then
+    echo "Refreshing app cache..."
+    grep -rl "Exec=" /usr/share/applications ~/.local/share/applications 2>/dev/null | while read -r file; do
+        name=$(grep -m1 "^Name=" "$file" | cut -d= -f2)
+        exec=$(grep -m1 "^Exec=" "$file" | cut -d= -f2 | sed 's/ %.//g')
+        icon=$(grep -m1 "^Icon=" "$file" | cut -d= -f2)
+        wmclass=$(grep -m1 "^StartupWMClass=" "$file" | cut -d= -f2)
+
+        [ -z "$name" ] && continue
+        [ -z "$exec" ] && continue
+
+        echo "$name|$icon|$file|$exec|$wmclass"
+    done > "$CACHE"
+    echo "Cache refreshed!"
+    exit 0
+fi
+
+# Load cached entries
+[ ! -f "$CACHE" ] && echo "Cache missing! Run with --refresh first." && exit 1
+list=$(cat "$CACHE")
+
+# Show menu with icons
+choice=$(awk -F'|' '{print $1 "\x00icon\x1f" $2}' <<< "$list" | fuzzel --dmenu)
+[ -z "$choice" ] && exit 0
+
+# Get selected entry
+selected=$(grep "^$choice|" <<< "$list")
+exec_cmd=$(cut -d'|' -f4 <<< "$selected")
+wmclass=$(cut -d'|' -f5 <<< "$selected")
+[ -z "$wmclass" ] && wmclass="$choice"
+
+# Query niri windows ONCE
+windows_json=$(niri msg -j windows)
+
+# Find existing window
+win_id=$(jq -r ".[] | select(.app_id==\"$wmclass\" or .app_id==\"$choice\") | .id" <<< "$windows_json" | head -n1)
+
+if [ -n "$win_id" ]; then
+    # Focus window
+    niri msg action focus-window --id "$win_id"
+else
+    # Launch new instance
+    setsid sh -c "$exec_cmd" >/dev/null 2>&1 &
+fi
