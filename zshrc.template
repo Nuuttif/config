@@ -13,6 +13,8 @@ fi
 # Starship prompt
 eval "$(starship init zsh)"
 
+source <(fzf --zsh)
+
 # Pretty ls
 alias ls='lsd --color always --icon always'
 
@@ -26,12 +28,6 @@ cdf() {
 }
 
 cmdf() {
-  local cmd
-  cmd=$(fc -ln -90000 2>/dev/null | fzf --tac --height 40% --reverse) || return
-  print -z "$cmd"
-}
-
-cmdfe() {
   local dry_run=0
   # check for --dry flag
   if [[ "$1" == "--dry" ]]; then
