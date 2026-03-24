@@ -204,7 +204,8 @@ layout {
         width 2
         // active-color "#ffc87f"
         // active-color "#eb6f92"   // pink accent
-        active-color "#c4a7e7"
+        // active-color "#c4a7e7"
+	active-color "#191724"
 
         // inactive-color "#505050"
         // inactive-color "#26233a" // slightly lighter than base

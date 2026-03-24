@@ -127,7 +127,7 @@ tooltip label {
 #custom-swayidle {
 	border-right: 1px solid alpha(@text, 0.25);
 	margin: 6px 0 0 0;
-	padding: 1px 12px 1px 12px;
+	padding: 1px 12px 0 12px;
 }
 
 #custom-media:hover,
