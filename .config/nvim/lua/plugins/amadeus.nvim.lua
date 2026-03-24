@@ -1,5 +1,5 @@
 return {
-	dir = vim.fn.expand("~/personal/proj/amadeus.nvim"), -- local plugin
+	dir = vim.fn.expand("~/prog/amadeus.nvim"), -- local plugin
 	dev = true, -- enable dev mode
 	dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim", "nvim-telescope/telescope.nvim" },
 
