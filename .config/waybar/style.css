@@ -1,69 +1,109 @@
-/*base background color*/
-@define-color bg_main rgba(25, 25, 25, 1);
-@define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
+/* ╭────────────────────────────────────────────────────╮
+   │  Rose Pine Waybar Theme - Modern Rice              │
+   │  Colors matched to pink wallpaper                  │
+   ╰────────────────────────────────────────────────────╯ */
 
-/*base background color of selections */
-@define-color bg_hover rgba(200, 200, 200, 0.3);
-/*base background color of active elements */
-@define-color bg_active rgba(100, 100, 100, 0.5);
+/* ── Rose Pine Color Palette ── */
+@define-color base            #191724;
+@define-color surface         #1f1d2e;
+@define-color overlay         #26233a;
+@define-color muted           #6e6a86;
+@define-color subtle          #908caa;
+@define-color text            #e0def4;
+@define-color love            #eb6f92;
+@define-color gold            #f6c177;
+@define-color rose            #ebbcba;
+@define-color pine            #31748f;
+@define-color foam            #9ccfd8;
+@define-color iris            #c4a7e7;
 
-/*base border color*/
-@define-color border_main rgba(255, 255, 255, 0.2);
+/* ── Semantic Colors ── */
+@define-color bg_main         @base;
+@define-color bg_main_tooltip alpha(@surface, 0.95);
+@define-color bg_hover        alpha(@overlay, 0.8);
+@define-color bg_active       alpha(@love, 0.25);
+@define-color border_main     alpha(@love, 0.3);
+@define-color content_main    @text;
+@define-color content_inactive @muted;
 
-/*text color for entries, views and content in general */
-@define-color content_main white;
-/*text color for entries that are unselected */
-@define-color content_inactive rgba(255, 255, 255, 0.25);
-
+/* ── Global Reset ── */
 * {
   text-shadow: none;
   box-shadow: none;
   border: none;
   border-radius: 0;
-  /* font-family: "Ubuntu Mono Nerd Font", "Noto Sans Mono CJK TC"; */
-  font-weight: 300;
-  font-size: 16px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  font-family: "JetBrainsMono Nerd Font", "SF Mono", "Fira Code", monospace;
+  font-weight: 500;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
+/* ── Main Window ── */
 window#waybar {
-  background: @bg_main;
-  border-top: 1px solid @border_main;
+  background: alpha(@bg_main, 0.85);
+  border-bottom: 2px solid @border_main;
   color: @content_main;
+  border-radius: 0;
 }
 
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* ── Tooltip Styling ── */
 tooltip {
   background: @bg_main_tooltip;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: @border_main;
+  border-radius: 8px;
+  border: 1px solid alpha(@love, 0.4);
+  padding: 8px 12px;
 }
+
 tooltip label {
   color: @content_main;
+  padding: 4px 8px;
 }
 
+/* ── Workspaces ── */
 #workspaces {
   color: transparent;
-  margin-right: 4px;
-  margin-left: 14px;
-}
-#workspaces button {
-  padding: 3px 3px;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#workspaces button.active {
-  color: @content_main;
-}
-#workspaces button.focused {
-  color: @content_main;
-}
-#workspaces button.urgent {
-  background: rgba(255, 87, 51, 0.5);
-  color: @warning_color;
+  margin: 6px 8px 6px 16px;
+  padding: 4px;
+  background: alpha(@surface, 0.6);
+  border-radius: 12px;
+  border: 1px solid alpha(@love, 0.2);
 }
 
+#workspaces button {
+  padding: 4px 10px;
+  margin: 0 3px;
+  color: @muted;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#workspaces button:hover {
+  background: alpha(@love, 0.2);
+  color: @rose;
+}
+
+#workspaces button.active {
+  background: alpha(@love, 0.25);
+  color: @love;
+  border: 1px solid alpha(@love, 0.4);
+}
+
+#workspaces button.focused {
+  background: alpha(@rose, 0.2);
+  color: @rose;
+}
+
+#workspaces button.urgent {
+  background: alpha(@love, 0.4);
+  color: @text;
+}
+
+/* ── Module Styling ── */
 #custom-media,
 #custom-updates,
 #backlight,
@@ -75,36 +115,149 @@ tooltip label {
 #memory,
 #power-profiles-daemon,
 #custom-swayidle,
-#clock {
-  margin: 0 10px 0 0;
-  padding: 2px 2px;
+#clock,
+#tray {
+  margin: 6px 4px;
+  padding: 6px 14px;
+  background: alpha(@surface, 0.6);
+  border-radius: 10px;
+  border: 1px solid alpha(@overlay, 0.5);
+  transition: all 0.3s ease;
 }
 
-#power-profiles-daemon {
-  margin: 0 16px 0 0;
-  font-size: 19px;
+#custom-media:hover,
+#pulseaudio:hover,
+#battery:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#clock:hover {
+  background: alpha(@overlay, 0.8);
+  border-color: alpha(@love, 0.3);
 }
 
-#custom-swayidle {
-  margin: 0px 8px 0 0;
+/* ── CPU & Memory ── */
+#cpu {
+  color: @foam;
+}
+
+#memory {
+  color: @iris;
+}
+
+/* ── Network ── */
+#network {
+  color: @foam;
+}
+
+#network.disconnected {
+  color: @muted;
+}
+
+/* ── Audio ── */
+#pulseaudio {
+  color: @rose;
+}
+
+#pulseaudio.muted {
+  color: @muted;
+}
+
+/* ── Battery States ── */
+#battery {
+  color: @pine;
 }
 
 #battery.good {
-  color: #228b22;
+  color: @pine;
 }
 
 #battery.warning {
-  color: #fad104;
+  color: @gold;
 }
 
 #battery.critical {
-  color: #ee2e24;
+  color: @love;
+  background: alpha(@love, 0.15);
 }
 
 #battery.charging {
-  color: #ffffff;
+  color: @rose;
 }
 
+/* ── Power Profiles ── */
+#power-profiles-daemon {
+  margin: 6px 4px;
+  padding: 4px 10px;
+  font-size: 16px;
+  color: @gold;
+}
+
+#power-profiles-daemon.performance {
+  color: @love;
+}
+
+#power-profiles-daemon.balanced {
+  color: @gold;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @pine;
+}
+
+/* ── Swayidle ── */
+#custom-swayidle {
+  margin: 6px 4px;
+  color: @muted;
+}
+
+#custom-swayidle.active {
+  color: @love;
+}
+
+/* ── Media ── */
 #custom-media {
-  color: #8968cd;
+  color: @iris;
+  font-style: italic;
+}
+
+/* ── Clock ── */
+#clock {
+  color: @text;
+  font-weight: 600;
+  margin-right: 16px;
+  border: 1px solid alpha(@love, 0.3);
+}
+
+#clock:hover {
+  background: alpha(@love, 0.15);
+}
+
+/* ── Tray ── */
+#tray {
+  background: alpha(@surface, 0.6);
+  padding: 4px 10px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background: alpha(@love, 0.3);
+}
+
+/* ── Window Title (if used) ── */
+#window {
+  color: @text;
+  font-weight: 500;
+}
+
+/* ── Scratchpad (if used) ── */
+#scratchpad {
+  background: alpha(@surface, 0.6);
+  color: @text;
+  padding: 4px 12px;
+  border-radius: 10px;
 }
