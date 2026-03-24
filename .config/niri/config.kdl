@@ -201,10 +201,10 @@ layout {
         // If you enable the border, you probably want to disable the focus ring.
         // off
 
-        width 4
+        width 2
         // active-color "#ffc87f"
-        active-color "#eb6f92"   // pink accent
-        // active-color "#c4a7e7"
+        // active-color "#eb6f92"   // pink accent
+        active-color "#c4a7e7"
 
         // inactive-color "#505050"
         // inactive-color "#26233a" // slightly lighter than base
@@ -214,7 +214,7 @@ layout {
         // Color of the border around windows that request your attention.
         urgent-color "#9b0000"
 
-	active-gradient from="#c4a7e7" to="#31748f" angle=45 relative-to="workspace-view" in="oklch"
+	// active-gradient from="#c4a7e7" to="#31748f" angle=45 relative-to="workspace-view" in="oklch"
     }
 
     // You can enable drop shadows for windows.
@@ -290,7 +290,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
