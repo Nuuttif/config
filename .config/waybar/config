@@ -4,7 +4,7 @@
     "height": 24, // Waybar height
     // "width": 1366, // Waybar width
     // Choose the order of the modules
-    "modules-right": ["cpu", "memory", "network", "pulseaudio", "battery", "tray", "clock"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "battery", "network", "tray", "clock"],
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -51,7 +51,7 @@
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": "  {signalStrength}%",
+        "format-wifi": " ",
         "format-ethernet": "",
         "format-disconnected": "Disconnected ⚠"
     },

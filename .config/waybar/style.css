@@ -4,103 +4,92 @@
    ╰────────────────────────────────────────────────────╯ */
 
 /* ── Rose Pine Color Palette ── */
-@define-color base            #191724;
-@define-color surface         #1f1d2e;
-@define-color overlay         #26233a;
-@define-color muted           #6e6a86;
-@define-color subtle          #908caa;
-@define-color text            #e0def4;
-@define-color love            #eb6f92;
-@define-color gold            #f6c177;
-@define-color rose            #ebbcba;
-@define-color pine            #31748f;
-@define-color foam            #9ccfd8;
-@define-color iris            #c4a7e7;
+@define-color base #191724;
+@define-color surface #1f1d2e;
+@define-color muted #6e6a86;
+@define-color text #e0def4;
+@define-color love #eb6f92;
+@define-color gold #f6c177;
 
 /* ── Semantic Colors ── */
-@define-color bg_main         @base;
 @define-color bg_main_tooltip alpha(@surface, 0.95);
-@define-color bg_hover        alpha(@overlay, 0.8);
-@define-color bg_active       alpha(@love, 0.25);
-@define-color border_main     alpha(@love, 0.3);
-@define-color content_main    @text;
-@define-color content_inactive @muted;
+@define-color content_main @text;
 
 /* ── Global Reset ── */
 * {
-  text-shadow: none;
-  box-shadow: none;
-  border: none;
-  border-radius: 0;
-  font-family: "JetBrainsMono Nerd Font", "SF Mono", "Fira Code", monospace;
-  font-weight: 500;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+	text-shadow: none;
+	box-shadow: none;
+	border: none;
+	border-radius: 0;
+	font-family: "JetBrainsMono Nerd Font", "SF Mono", "Fira Code", monospace;
+	font-weight: 500;
+	font-size: 12px;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 /* ── Main Window ── */
 window#waybar {
-  background: alpha(@bg_main, 0.85);
-  border-bottom: 2px solid @border_main;
-  color: @content_main;
-  border-radius: 0;
+	background: transparent;
+	border-bottom: none;
+	color: @content_main;
+	border-radius: 0;
 }
 
 window#waybar.hidden {
-  opacity: 0.2;
+	opacity: 0.2;
 }
 
 /* ── Tooltip Styling ── */
 tooltip {
-  background: @bg_main_tooltip;
-  border-radius: 8px;
-  border: 1px solid alpha(@love, 0.4);
-  padding: 8px 12px;
+	background: @bg_main_tooltip;
+	border-radius: 8px;
+	border: 1px solid alpha(@text, 0.5);
+	padding: 6px 10px;
 }
 
 tooltip label {
-  color: @content_main;
-  padding: 4px 8px;
+	color: @content_main;
+	padding: 4px 8px;
 }
 
 /* ── Workspaces ── */
 #workspaces {
-  color: transparent;
-  margin: 6px 8px 6px 16px;
-  padding: 4px;
-  background: alpha(@surface, 0.6);
-  border-radius: 12px;
-  border: 1px solid alpha(@love, 0.2);
+	color: transparent;
+	margin: 4px 6px 0 12px;
+	padding: 2px;
+	background: transparent;
+	border-radius: 12px;
+	border: 1px solid alpha(@text, 0.4);
 }
 
 #workspaces button {
-  padding: 4px 10px;
-  margin: 0 3px;
-  color: @muted;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	padding: 4px 10px;
+	margin: 0 3px;
+	color: @muted;
+	border-radius: 8px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #workspaces button:hover {
-  background: alpha(@love, 0.2);
-  color: @rose;
+	background: alpha(@text, 0.1);
+	color: @text;
 }
 
 #workspaces button.active {
-  background: alpha(@love, 0.25);
-  color: @love;
-  border: 1px solid alpha(@love, 0.4);
+	background: alpha(@text, 0.15);
+	color: @text;
+	border: 1px solid alpha(@text, 0.5);
 }
 
 #workspaces button.focused {
-  background: alpha(@rose, 0.2);
-  color: @rose;
+	background: alpha(@text, 0.12);
+	color: @text;
 }
 
 #workspaces button.urgent {
-  background: alpha(@love, 0.4);
-  color: @text;
+	background: alpha(@love, 0.3);
+	color: @text;
 }
 
 /* ── Module Styling ── */
@@ -117,12 +106,28 @@ tooltip label {
 #custom-swayidle,
 #clock,
 #tray {
-  margin: 6px 4px;
-  padding: 6px 14px;
-  background: alpha(@surface, 0.6);
-  border-radius: 10px;
-  border: 1px solid alpha(@overlay, 0.5);
-  transition: all 0.3s ease;
+	margin: 4px 0 0 0;
+	padding: 1px 12px;
+	background: transparent;
+	border-radius: 0;
+	border: none;
+	transition: all 0.3s ease;
+}
+
+#custom-media,
+#custom-updates,
+#backlight,
+#pulseaudio,
+#battery,
+#network,
+#custom-weather,
+#cpu,
+#memory,
+#power-profiles-daemon,
+#custom-swayidle {
+	border-right: 1px solid alpha(@text, 0.25);
+	margin: 6px 0 0 0;
+	padding: 1px 12px 1px 12px;
 }
 
 #custom-media:hover,
@@ -131,133 +136,130 @@ tooltip label {
 #network:hover,
 #cpu:hover,
 #memory:hover,
-#clock:hover {
-  background: alpha(@overlay, 0.8);
-  border-color: alpha(@love, 0.3);
+#clock:hover,
+#tray:hover {
+	background: alpha(@text, 0.18);
 }
 
 /* ── CPU & Memory ── */
 #cpu {
-  color: @foam;
+	color: @text;
 }
 
 #memory {
-  color: @iris;
+	color: @text;
 }
 
 /* ── Network ── */
 #network {
-  color: @foam;
+	color: @text;
 }
 
 #network.disconnected {
-  color: @muted;
+	color: @muted;
 }
 
 /* ── Audio ── */
 #pulseaudio {
-  color: @rose;
+	color: @text;
 }
 
 #pulseaudio.muted {
-  color: @muted;
+	color: @muted;
 }
 
 /* ── Battery States ── */
 #battery {
-  color: @pine;
+	color: @text;
 }
 
 #battery.good {
-  color: @pine;
+	color: @text;
 }
 
 #battery.warning {
-  color: @gold;
+	color: @gold;
 }
 
 #battery.critical {
-  color: @love;
-  background: alpha(@love, 0.15);
+	color: @love;
 }
 
 #battery.charging {
-  color: @rose;
+	color: @text;
 }
 
 /* ── Power Profiles ── */
 #power-profiles-daemon {
-  margin: 6px 4px;
-  padding: 4px 10px;
-  font-size: 16px;
-  color: @gold;
+	margin: 4px 3px 0 0;
+	padding: 4px 10px;
+	font-size: 16px;
+	color: @text;
 }
 
 #power-profiles-daemon.performance {
-  color: @love;
+	color: @text;
 }
 
 #power-profiles-daemon.balanced {
-  color: @gold;
+	color: @text;
 }
 
 #power-profiles-daemon.power-saver {
-  color: @pine;
+	color: @text;
 }
 
 /* ── Swayidle ── */
 #custom-swayidle {
-  margin: 6px 4px;
-  color: @muted;
+	margin: 4px 3px 0 0;
+	color: @muted;
 }
 
 #custom-swayidle.active {
-  color: @love;
+	color: @love;
 }
 
 /* ── Media ── */
 #custom-media {
-  color: @iris;
-  font-style: italic;
+	color: @text;
+	font-style: italic;
 }
 
 /* ── Clock ── */
 #clock {
-  color: @text;
-  font-weight: 600;
-  margin-right: 16px;
-  border: 1px solid alpha(@love, 0.3);
-}
-
-#clock:hover {
-  background: alpha(@love, 0.15);
+	color: @text;
+	font-weight: 600;
+	margin-right: 16px;
+	border: none;
+	border-right: none;
 }
 
 /* ── Tray ── */
 #tray {
-  background: alpha(@surface, 0.6);
-  padding: 4px 10px;
+	background: transparent;
+	padding: 1px 10px;
+	border-right: none;
 }
 
-#tray > .passive {
-  -gtk-icon-effect: dim;
+#tray>.passive {
+	-gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background: alpha(@love, 0.3);
+#tray>.needs-attention {
+	-gtk-icon-effect: highlight;
+	background: alpha(@text, 0.15);
 }
 
 /* ── Window Title (if used) ── */
 #window {
-  color: @text;
-  font-weight: 500;
+	color: @text;
+	font-weight: 500;
 }
 
 /* ── Scratchpad (if used) ── */
 #scratchpad {
-  background: alpha(@surface, 0.6);
-  color: @text;
-  padding: 4px 12px;
-  border-radius: 10px;
+	background: transparent;
+	color: @text;
+	padding: 1px 10px;
+	border-radius: 10px;
 }
