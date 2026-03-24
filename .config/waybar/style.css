@@ -126,7 +126,7 @@ tooltip label {
 #power-profiles-daemon,
 #custom-swayidle {
 	border-right: 1px solid alpha(@text, 0.25);
-	margin: 6px 0 0 0;
+	margin: 4px 0 0 0;
 	padding: 1px 12px 0 12px;
 }
 
@@ -229,7 +229,9 @@ tooltip label {
 #clock {
 	color: @text;
 	font-weight: 600;
-	margin-right: 16px;
+	margin: 4px 0 0 0;
+	margin-right: 4px;
+	padding: 1px 12px 0 12px;
 	border: none;
 	border-right: none;
 }
