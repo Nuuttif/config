@@ -240,7 +240,7 @@ tooltip label {
 #tray {
 	background: transparent;
 	padding: 1px 10px;
-	border-right: none;
+	border-right: 1px solid alpha(@text, 0.25);
 }
 
 #tray>.passive {
