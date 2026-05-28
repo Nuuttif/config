@@ -1,5 +1,11 @@
+local amadeus_path = vim.fn.expand("~/prog/amadeus.nvim")
+
+if not vim.uv.fs_stat(amadeus_path) then
+	return {}
+end
+
 return {
-	dir = vim.fn.expand("~/personal/proj/amadeus.nvim"), -- local plugin
+	dir = amadeus_path, -- local plugin
 	dev = true, -- enable dev mode
 	dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim", "nvim-telescope/telescope.nvim" },
 

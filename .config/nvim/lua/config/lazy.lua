@@ -1,6 +1,6 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
@@ -21,7 +21,32 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.number = true
-vim.api.nvim_set_option("clipboard", "unnamed")
+
+-- Windows clipboard: unnamedplus needs win32yank; fallback to unnamed on stock Windows
+if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+	local function command_exists(cmd)
+		return vim.fn.executable(cmd) == 1
+	end
+	if command_exists("win32yank") or command_exists("win32yank.exe") then
+		vim.opt.clipboard = "unnamedplus"
+	else
+		vim.opt.clipboard = "unnamed"
+	end
+else
+	vim.opt.clipboard = "unnamedplus"
+end
+
+-- Use PowerShell as the shell on Windows for :terminal and plugins like Floaterm
+if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+	local shell = "pwsh"
+	if vim.fn.executable("pwsh") ~= 1 then
+		shell = "powershell"
+	end
+	vim.o.shell = shell
+	vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
+end
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -70,16 +95,20 @@ vim.keymap.set("n", "<leader>q", "<cmd>close<CR>", { desc = "Close current split
 
 -- Save current messages to a file
 function LogMessages()
-	local logfile = vim.fn.expand("~/tmp/nvim_messages.log")
+	local logdir = vim.fn.stdpath("log")
+	vim.fn.mkdir(logdir, "p")
+	local logfile = logdir .. "/nvim_messages.log"
 	local f = io.open(logfile, "w")
 	if f then
 		f:write(vim.fn.execute("messages"))
 		f:close()
+		print("Messages saved to " .. logfile)
+	else
+		print("Failed to save messages to " .. logfile)
 	end
-	print("Messages saved to " .. logfile)
 end
 
-vim.api.nvim_create_user_command("LogMessages", LogMessages, { desc = "Log error messages to ~/tpm/nvim_messages.log" })
+	vim.api.nvim_create_user_command("LogMessages", LogMessages, { desc = "Log error messages to stdpath('log')/nvim_messages.log" })
 
 vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { silent = true })
 

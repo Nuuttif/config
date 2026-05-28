@@ -31,7 +31,7 @@ return {
 			-- Try LSP root first
 			for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
 				local lsp_root = client.config.root_dir
-				if lsp_root and vim.loop.fs_stat(lsp_root) then
+				if lsp_root and vim.uv.fs_stat(lsp_root) then
 					root = lsp_root
 					break
 				end
@@ -40,7 +40,10 @@ return {
 			-- Try Git root if LSP root not found
 			if not root then
 				local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-				if git_root and vim.loop.fs_stat(git_root) then
+				if git_root then
+					git_root = git_root:gsub("\r", ""):gsub("\\", "/")
+				end
+				if git_root and vim.uv.fs_stat(git_root) then
 					root = git_root
 				end
 			end
